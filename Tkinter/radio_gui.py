@@ -5,7 +5,7 @@ except:
 
 import time
 
-from dial_widget import Dial
+from dial_widget import RotaryEncoder
 from lcd_widget import LCD
         
     
@@ -18,8 +18,8 @@ class App(tk.Frame):
         self.master = master
         self.lcd = LCD(self)
         self.lcd.grid(row=0,column=1,columnspan=2)
-        Dial(self,self.tuning_event).grid(row=1,column=1)
-        Dial(self,self.volume_event).grid(row=1,column=2)
+        RotaryEncoder(self,self.tuning_event).grid(row=1,column=1)
+        RotaryEncoder(self,self.volume_event).grid(row=1,column=2)
 
         self.menus = ["Tuning","Power","Exit"]
         self.current_menu = 0
@@ -37,25 +37,25 @@ class App(tk.Frame):
         #print("Tuning:",evt)
         #self.lcd.line1("Tuning:%s" % evt)
         if self.mode == self.MODE_MENU:
-            if evt == Dial.CLOCKWISE:
+            if evt == RotaryEncoder.CLOCKWISE:
                 self.nextMenu()
-            elif evt == Dial.ANTICLOCKWISE:
+            elif evt == RotaryEncoder.ANTICLOCKWISE:
                 self.prevMenu()
-            elif evt == Dial.BUTTONDOWN:
+            elif evt == RotaryEncoder.BUTTONDOWN:
                 self.selectMenu()
         elif self.mode == self.MODE_PLAY:
-            if evt == Dial.BUTTONDOWN:
+            if evt == RotaryEncoder.BUTTONDOWN:
                 self.mode = self.MODE_MENU
 
         elif self.mode == self.MODE_TUNING:
-            if evt == Dial.BUTTONDOWN:
+            if evt == RotaryEncoder.BUTTONDOWN:
                 self.playlist_idx = self.playlist_tuning_idx
                 self.mode = self.MODE_PLAY
-            elif evt == Dial.CLOCKWISE:
+            elif evt == RotaryEncoder.CLOCKWISE:
                 self.playlist_tuning_idx += 1
                 if self.playlist_tuning_idx >= len(self.playlist):
                     self.playlist_tuning_idx = 0
-            elif evt == Dial.ANTICLOCKWISE:
+            elif evt == RotaryEncoder.ANTICLOCKWISE:
                 print("Back")
                 self.playlist_tuning_idx -= 1
                 if self.playlist_tuning_idx < 0:

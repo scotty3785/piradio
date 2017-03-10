@@ -5,7 +5,7 @@ except:
 
 import time
 
-class Dial(tk.Frame):
+class RotaryEncoder(tk.Frame):
     CLOCKWISE=1
     ANTICLOCKWISE=2
     BUTTONDOWN=3
@@ -43,7 +43,7 @@ class Dial(tk.Frame):
 class App(tk.Frame):
     def __init__(self,master=None,**kw):
         tk.Frame.__init__(self,master=master,**kw)
-        dial1 = Dial(master=self,callback=self.event)
+        dial1 = RotaryEncoder(master=self,callback=self.event)
         dial1.grid()
     def event(self,evt):
         print(evt)
